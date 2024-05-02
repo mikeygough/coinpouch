@@ -7,7 +7,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="bg-black h-screen pt-28">{children}</div>
+      </body>
     </html>
   );
 }
