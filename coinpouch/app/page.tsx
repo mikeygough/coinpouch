@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { createCoin } from '@/app/lib/actions';
 // import { motion } from 'framer-motion';
 // import { useForm } from 'react-hook-form';
 // import toast, { Toaster } from 'react-hot-toast';
@@ -20,7 +21,10 @@ export default function Home() {
           Add a coin!
         </h1>
 
-        <form className="grid grid-cols-1 gap-y-6 shadow-lg p-10 bg-[#131415] rounded-lg">
+        <form
+          action={createCoin}
+          className="grid grid-cols-1 gap-y-6 shadow-lg p-10 bg-[#131415] rounded-lg"
+        >
           <div className="relative">
             <label htmlFor="symbol" className="sr-only">
               symbol
@@ -32,6 +36,22 @@ export default function Home() {
               className={`block w-full shadow-sm py-3 text-white px-4 mb-2 bg-[#131415] placeholder-gray-500   border-gray-700 rounded-md `}
               placeholder="Symbol"
             />
+          </div>
+
+          <div>
+            <label htmlFor="actiontype" className="sr-only">
+              Action Type
+            </label>
+            <select
+              id="actionType"
+              name="actionType"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-[#131415] placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+              defaultValue="BUY"
+            >
+              <option>BUY</option>
+              <option>SELL</option>
+              <option>HOLD</option>
+            </select>
           </div>
 
           <div>
