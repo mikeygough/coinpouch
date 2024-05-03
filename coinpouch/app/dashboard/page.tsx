@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Portfolio, ActionType } from '@prisma/client';
-import { fetchCoins } from '@/app/lib/data';
+import { fetchCoins, fetchCoinPrice } from '@/app/lib/data';
+import { formatCurrency } from '../lib/util';
 
 export default async function DashboardPage() {
   // load coins from database
@@ -52,6 +53,12 @@ export default async function DashboardPage() {
                         >
                           Action
                         </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                        >
+                          Current Price
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-gray-700 divide-y divide-gray-500">
@@ -69,6 +76,10 @@ export default async function DashboardPage() {
                             >
                               {item.actionType.toLowerCase()}
                             </span>
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                            {fetchCoinPrice(item.symbol)}
                           </td>
                         </tr>
                       ))}
