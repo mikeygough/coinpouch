@@ -1,23 +1,6 @@
 import { prisma } from './prisma';
-
-// export async function addCoin() {
-//   const { symbol, actionType } = req.body;
-
-//   try {
-//     console.log('Adding coin...');
-//     const coin = await prisma.portfolio.create({
-//       data: {
-//         symbol,
-//         actionType,
-//       },
-//     });
-
-//     console.log(coin);
-//   } catch (error) {
-//     console.log('Database Error:', error);
-//     throw new Error('Failed to create coin.');
-//   }
-// }
+import { CoinData } from './definitions';
+const CMC_API_KEY = process.env.CMC_API_KEY;
 
 export async function fetchCoins() {
   try {
@@ -36,4 +19,25 @@ export async function fetchCoins() {
     console.log('Database Error:', error);
     throw new Error('Failed to fetch coin data.');
   }
+}
+
+export async function fetchCoinPrice(
+  symbol: string
+): Promise<number> {
+  const res = await fetch(
+    `https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=${symbol}&convert=USD`,
+    {
+      headers: {
+        'X-CMC_PRO_API_KEY': `${CMC_API_KEY}`,
+        Accept: 'application/json',
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  const data: CoinData = await res.json();
+  return data.data[symbol][0]['quote']['USD']['price'];
 }

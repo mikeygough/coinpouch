@@ -1,9 +1,9 @@
 'use server';
 import { prisma } from './prisma';
 import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+// validate data
 const CoinFormSchema = z.object({
   id: z.string(),
   symbol: z.string(),

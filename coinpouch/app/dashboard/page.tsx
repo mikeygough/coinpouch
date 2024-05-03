@@ -3,8 +3,10 @@ import { Portfolio, ActionType } from '@prisma/client';
 import { fetchCoins } from '@/app/lib/data';
 
 export default async function DashboardPage() {
+  // load coins from database
   const coins = await fetchCoins();
 
+  // conditional formatting
   const formatActionType = (action: ActionType) => {
     switch (action) {
       case 'BUY':
@@ -25,13 +27,14 @@ export default async function DashboardPage() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="my- my-36 h-auto">
+
+      <main className="my-8 h-auto">
         <div className="container mx-auto max-w-screen-lg px-4">
           <h1 className="text-3xl mb-5 font-bold tracking-wide text-white">
             Portfolio
           </h1>
           <section className="flex flex-col">
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div className="shadow overflow-hidden border-b border-gray-800 rounded-lg">
                   <table className="min-w-full divide-y divide-gray-800 ">
@@ -60,7 +63,7 @@ export default async function DashboardPage() {
 
                           <td className="px-6 py-4 whitespace-nowrap capitalize">
                             <span
-                              className={`flex-shrink-0 inline-block px-2 py-0.5 text-xs font-medium rounded-full ${formatActionType(
+                              className={`text-black flex-shrink-0 inline-block px-2 py-0.5 text-xs font-medium rounded-full ${formatActionType(
                                 item.actionType
                               )}`}
                             >

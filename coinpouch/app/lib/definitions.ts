@@ -3,3 +3,15 @@ export type Portfolio = {
   actionType: 'BUY' | 'SELL' | 'HOLD';
   symbol: String;
 };
+
+export interface CoinData {
+  data: {
+    [symbol: string]: Array<{
+      quote: {
+        USD: {
+          price: number;
+        };
+      };
+    }>;
+  };
+}
