@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Portfolio, ActionType } from '@prisma/client';
 import { fetchCoins, fetchCoinPrice } from '@/app/lib/data';
-import { formatCurrency } from '../lib/util';
 
 export default async function DashboardPage() {
   // load coins from database

@@ -1,5 +1,6 @@
 import { prisma } from './prisma';
 import { CoinData } from './definitions';
+import { formatCurrency } from '../lib/util';
 const CMC_API_KEY = process.env.CMC_API_KEY;
 
 export async function fetchCoins() {
@@ -23,7 +24,7 @@ export async function fetchCoins() {
 
 export async function fetchCoinPrice(
   symbol: string
-): Promise<number> {
+): Promise<string> {
   const res = await fetch(
     `https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=${symbol}&convert=USD`,
     {
@@ -39,5 +40,8 @@ export async function fetchCoinPrice(
   }
 
   const data: CoinData = await res.json();
-  return data.data[symbol][0]['quote']['USD']['price'];
+  const formattedData: string = formatCurrency(
+    data.data[symbol][0]['quote']['USD']['price']
+  );
+  return formattedData;
 }
